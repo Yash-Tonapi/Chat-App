@@ -6,6 +6,6 @@ const App = () => {
 <button className="btn btn-active btn-info">Info</button>
 <button className="btn btn-active btn-success">Success</button>
 <button className="btn btn-active btn-warning">Warning</button>
-<button className="btn btn-active btn-error">Error</button></div>
+<button className="btn btn-active btn-error">Error</button> </div>
 };
 export default App
