@@ -21,7 +21,7 @@ const GlobeDots = () => {
     // Animate dots
     meshRefs.current.forEach(({ ref, basePos, phase }) => {
       if (ref) {
-        const scale = 1 + 0.12 * Math.sin(time * 1.5 + phase);
+        const scale = 1 + 0.12 * Math.sin(time * 2 + phase);
         const animatedPos = basePos.clone().multiplyScalar(scale);
         ref.position.set(animatedPos.x, animatedPos.y, animatedPos.z);
       }
@@ -54,8 +54,8 @@ const GlobeDots = () => {
 
   // Generate base points
   const [points] = useState(() => {
-    const radius = 3;
-    const count = 120;
+    const radius = 4;
+    const count = 180;
     const dots = [];
 
     for (let i = 0; i < count; i++) {

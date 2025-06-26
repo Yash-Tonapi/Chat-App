@@ -2,7 +2,7 @@ import {useState} from 'react';
 import { useAuthStore } from '../store/useAuthStore';
 import { MessageSquare, User, Mail, Eye, EyeOff, Lock, Loader2 } from 'lucide-react';
 import {Link} from 'react-router-dom';
-
+import { toast } from 'react-hot-toast';
 
 import AuthImagePattern from '../components/AuthImagePattern';
 
@@ -21,14 +21,23 @@ const SignUpPage = () => {
 
   // validate the form 
   const validateForm = () => {
-    if (formData.fullName === "" || formData.email === "" || formData.password === "") {
-    }
+    if(!formData.fullName.trim()) return toast.error("Full name is required");;
+    if(!formData.email.trim()) return toast.error("Email is required");
+    if(!/\S+@\S+\.\S+/.test(formData.email)) return toast.error("Email is invalid");
+    if(!formData.password) return toast.error("Password is required");
+    if(formData.password.length < 6) return toast.error("Password should be at least 6 characters long");
+
+    return true
   }
   // e = event
   // helper for not refreshing the page
   const handleSubmit = (e) => {
     e.preventDefault();
-  }
+
+    const success = validateForm()
+
+    if(success === true) signup(formData);
+  };
 
 
   return  <div className = "min-h-screen grid lg:grid-cols-2">
@@ -138,14 +147,14 @@ const SignUpPage = () => {
     </div>
     {/* right side */}
     <div className="hidden lg:flex flex-col items-center justify-center bg-base-200 p-12">
-  <div className="w-full max-w-lg text-center">
-    <AuthImagePattern title="Join Our Community" subtitle="Discover a world of engaging conversations and meaningful interactions." />
-    <h2 className="text-2xl font-bold mt-6">Join Our Community</h2>
-    <p className="text-base-content/60">
-      Discover a world of engaging conversations and meaningful interactions.
-    </p>
-  </div>
-</div>
+      <div className="w-full max-w-lg text-center">
+        <AuthImagePattern title="Join Our Community" subtitle="Discover a world of engaging conversations and meaningful interactions." />
+        <h2 className="text-2xl font-bold mt-6">Join Our Community</h2>
+        <p className="text-base-content/60">
+          Discover a world of engaging conversations and meaningful interactions.
+        </p>
+      </div>
+    </div>
     
   </div>
 };
