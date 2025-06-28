@@ -5,22 +5,20 @@ import { Camera, Mail, User } from "lucide-react";
 const ProfilePage = () => {
   const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();
   const [selectedImg, setSelectedImg] = useState(null);
-  
-  // function to add the image uploaded in the UI
+
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-    if(!file) return;
-    
+    if (!file) return;
+
     const reader = new FileReader();
-    
+
     reader.readAsDataURL(file);
 
     reader.onload = async () => {
       const base64Image = reader.result;
       setSelectedImg(base64Image);
       await updateProfile({ profilePic: base64Image });
-    }
-
+    };
   };
 
   return (
@@ -57,7 +55,7 @@ const ProfilePage = () => {
                   id="avatar-upload"
                   className="hidden"
                   accept="image/*"
-                  onChange={handleImageUpload}ß
+                  onChange={handleImageUpload}
                   disabled={isUpdatingProfile}
                 />
               </label>
