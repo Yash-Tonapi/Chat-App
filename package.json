@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "emoji-picker-react": "^4.13.2"
+    "emoji-picker-react": "^4.13.2",
+    "express": "^5.1.0"
   }
 }
