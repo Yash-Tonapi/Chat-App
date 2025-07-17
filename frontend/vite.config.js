@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     // Increase warning limit or adjust as needed
+    outDir : 'public',
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
