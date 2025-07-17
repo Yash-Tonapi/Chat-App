@@ -12,17 +12,25 @@ export default defineConfig({
         // Split vendor code into granular chunks
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            // Separate React core libs
-            if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+            // Keep React and ReactDOM together
+            if (id.includes('react') || id.includes('react-dom')) {
               return 'react-vendor';
             }
+            // Three.js and related
+            if (id.includes('three') || id.includes('@react-three')) {
+              return 'three-vendor';
+            }
             // Icons library
-            if (id.includes('node_modules/lucide-react')) {
+            if (id.includes('lucide-react')) {
               return 'icons';
             }
             // Emoji picker
-            if (id.includes('node_modules/emoji-picker-react')) {
+            if (id.includes('emoji-picker-react')) {
               return 'emoji-picker';
+            }
+            // Socket.io
+            if (id.includes('socket.io')) {
+              return 'socket-vendor';
             }
             // Other third-party modules
             return 'vendor';
