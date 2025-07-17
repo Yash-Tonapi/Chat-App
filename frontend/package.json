@@ -10,14 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-three/drei": "^10.3.0",
-    "@react-three/fiber": "^9.1.2",
+    "@react-three/drei": "^9.114.3",
+    "@react-three/fiber": "^8.17.10",
     "axios": "^1.10.0",
     "cors": "^2.8.5",
     "emoji-picker-react": "^4.13.2",
     "lucide-react": "^0.522.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-hot-toast": "^2.5.2",
     "react-router-dom": "^7.6.2",
     "socket.io-client": "^4.8.1",
