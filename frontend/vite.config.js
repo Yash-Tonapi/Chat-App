@@ -4,37 +4,28 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      // Ensure React is properly resolved
+      'react': 'react',
+      'react-dom': 'react-dom'
+    }
+  },
   build: {
     // Increase warning limit or adjust as needed
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
-        // Split vendor code into granular chunks
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            // Keep React and ReactDOM together and ensure single instance
-            if (id.includes('react') && !id.includes('react-router') && !id.includes('react-hot-toast') && !id.includes('@react-three')) {
-              return 'react-vendor';
-            }
-            // Three.js and related
-            if (id.includes('three') || id.includes('@react-three')) {
-              return 'three-vendor';
-            }
-            // Icons library
-            if (id.includes('lucide-react')) {
-              return 'icons';
-            }
-            // Emoji picker
-            if (id.includes('@emoji-mart')) {
-              return 'emoji-picker';
-            }
-            // Socket.io
-            if (id.includes('socket.io')) {
-              return 'socket-vendor';
-            }
-            // Other third-party modules
-            return 'vendor';
-          }
+        // Simplified chunk splitting to avoid React context issues
+        manualChunks: {
+          // Keep React and related libraries together
+          'react-vendor': ['react', 'react-dom'],
+          // Three.js libraries
+          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
+          // UI libraries  
+          'ui-vendor': ['lucide-react', '@emoji-mart/react', '@emoji-mart/data'],
+          // Other libraries
+          'vendor': ['axios', 'zustand', 'socket.io-client', 'react-hot-toast', 'react-router-dom']
         }
       }
     }
