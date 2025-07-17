@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 import { useChatStore } from "../store/useChatStore";
 import { Image, Send, X, Smile } from "lucide-react";
-import EmojiPicker from "emoji-picker-react";
+import data from '@emoji-mart/data';
+import Picker from '@emoji-mart/react';
 import toast from "react-hot-toast";
 
 const MessageInput = () => {
@@ -82,12 +83,14 @@ const MessageInput = () => {
             <Smile size={20} />
           </button>
           {showEmojiPicker && (
-            <div className="absolute bottom-12">
-              <EmojiPicker
-                onEmojiClick={emojiData => {
-                  setText(text + emojiData.emoji);
+            <div className="absolute bottom-12 z-50">
+              <Picker 
+                data={data} 
+                onEmojiSelect={(emoji) => {
+                  setText(text + emoji.native);
                   setShowEmojiPicker(false);
                 }}
+                theme="dark"
               />
             </div>
           )}

@@ -12,8 +12,8 @@ export default defineConfig({
         // Split vendor code into granular chunks
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            // Keep React and ReactDOM together
-            if (id.includes('react') || id.includes('react-dom')) {
+            // Keep React and ReactDOM together and ensure single instance
+            if (id.includes('react') && !id.includes('react-router') && !id.includes('react-hot-toast') && !id.includes('@react-three')) {
               return 'react-vendor';
             }
             // Three.js and related
@@ -25,7 +25,7 @@ export default defineConfig({
               return 'icons';
             }
             // Emoji picker
-            if (id.includes('emoji-picker-react')) {
+            if (id.includes('@emoji-mart')) {
               return 'emoji-picker';
             }
             // Socket.io
