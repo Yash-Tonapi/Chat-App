@@ -1,11 +1,13 @@
 import { useRef, useState } from "react";
 import { useChatStore } from "../store/useChatStore";
-import { Image, Send, X } from "lucide-react";
+import { Image, Send, X, Smile } from "lucide-react";
+import EmojiPicker from "emoji-picker-react";
 import toast from "react-hot-toast";
 
 const MessageInput = () => {
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const fileInputRef = useRef(null);
   const { sendMessage } = useChatStore();
 
@@ -71,7 +73,24 @@ const MessageInput = () => {
       )}
     {/* form to handle the input */}
       <form onSubmit={handleSendMessage} className="flex items-center gap-2">
-        <div className="flex-1 flex gap-2">
+        <div className="flex-1 flex gap-2 relative">
+          <button
+            type="button"
+            className={`btn btn-circle text-zinc-400 ${showEmojiPicker ? "text-emerald-500" : ""}`}
+            onClick={() => setShowEmojiPicker(prev => !prev)}
+          >
+            <Smile size={20} />
+          </button>
+          {showEmojiPicker && (
+            <div className="absolute bottom-12">
+              <EmojiPicker
+                onEmojiClick={emojiData => {
+                  setText(text + emojiData.emoji);
+                  setShowEmojiPicker(false);
+                }}
+              />
+            </div>
+          )}
           <input
             type="text"
             className="w-full input input-bordered rounded-lg input-sm sm:input-md"
