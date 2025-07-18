@@ -9,17 +9,13 @@ import MessageSkeleton from "./skeletons/MessageSkeleton";
 
 
 const ChatContainer = () => {
-  const {messages, getMessages, isMessagesLoading, selectedUser, subscribeToMessages, unsubscribeFromMessages } = useChatStore();
+  const {messages, getMessages, isMessagesLoading, selectedUser } = useChatStore();
   const {authUser} = useAuthStore()
   const messageEndRef = useRef(null);
 
   useEffect(() => {
     getMessages(selectedUser._id);
-
-    subscribeToMessages();
-
-    return () => unsubscribeFromMessages();
-  },[selectedUser._id, getMessages, subscribeToMessages, unsubscribeFromMessages ])
+  },[selectedUser._id, getMessages ])
 
   // Scroll to bottom whenever messages change
   useEffect(() => {
